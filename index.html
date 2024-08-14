@@ -11,7 +11,13 @@
 	<body>
 		<header class="head-bar">
 			<img id="logo-img" src="./assets/img/logo.png" alt="logo">
-			<button id="themeToggle">Cambiar Tema</button>
+			<div class="toggle-container">
+				<p>Modo Oscuro</p>
+				<label class="switch">
+					<input type="checkbox" id="themeToggleInput">
+					<span class="slider round"></span>
+				</label>
+			</div>
 		</header>
 		<main class="input-container">
 			<div class="left-section">
@@ -25,7 +31,7 @@
 			</div>
 			<div class="right-section">
 				<div class="image-container">
-					<img src="image.png" alt="Ningún mensaje fue encontrado">
+					<img src="/assets/img/doll-encryptor.png" alt="Ningún mensaje fue encontrado">
 					<p id="outputText">Ningún mensaje fue encontrado</p>
 				</div>
 			</div>
