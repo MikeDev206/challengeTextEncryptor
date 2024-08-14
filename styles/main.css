@@ -10,7 +10,6 @@
 	--color-text-dark: #F3F5FC;
 	--font-family: 'Inter', sans-serif;
 	--font-family-dark: 'Inter', sans-serif;
-	/* Cambia si necesitas una tipografía diferente para el tema oscuro */
 }
 
 body {
@@ -26,6 +25,15 @@ body.dark-theme {
 	background-color: var(--color-bg-dark);
 	color: var(--color-text-dark);
 	font-family: var(--font-family-dark);
+}
+
+.head-bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 40px;
+	background-color: var(--color-output-background);
+	border-bottom: 1px solid var(--color-button-border);
 }
 
 .container {
@@ -80,6 +88,11 @@ button#decryptBtn:hover {
 	background-color: var(--color-button-border);
 }
 
+button#copyBtn {
+	display: none;
+	background-color: #28a745;
+}
+
 button:hover {
 	background-color: #003f7f;
 }
@@ -112,12 +125,6 @@ footer {
 	font-family: var(--font-family);
 	margin-top: 20px;
 	font-size: 14px;
-}
-
-header {
-	display: flex;
-	justify-content: flex-end;
-	padding: 20px;
 }
 
 .toggle-container {
@@ -181,7 +188,9 @@ input:checked+.slider:before {
 		align-items: center;
 	}
 
-	textarea, #outputArea, .image-container {
+	textarea,
+	#outputArea,
+	.image-container {
 		width: 100%;
 	}
 
