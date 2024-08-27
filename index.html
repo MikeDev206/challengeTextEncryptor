@@ -5,6 +5,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Text Encryptor</title>
+		<script src="https://kit.fontawesome.com/452449b734.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="styles/main.css">
 	</head>
 
@@ -12,10 +13,11 @@
 		<header class="head-bar">
 			<img id="logo-img" src="./assets/img/logo.png" alt="logo">
 			<div class="toggle-container">
-				<p>Modo Oscuro</p>
-				<label class="switch">
-					<input type="checkbox" id="themeToggleInput">
-					<span class="slider round"></span>
+				<input type="checkbox" class="checkbox" id="checkbox">
+				<label for="checkbox" class="checkbox-label">
+					<i class="fa-solid fa-moon"></i>
+					<i class="fa-solid fa-sun"></i>
+					<span class="ball"></span>
 				</label>
 			</div>
 		</header>
@@ -26,9 +28,11 @@
 				<div class="buttons">
 					<button id="encryptBtn">Encriptar</button>
 					<button id="decryptBtn">Desencriptar</button>
-					<button id="copyBtn" style="display: none;">Copiar</button>
 				</div>
-				<p style="font-size: 12px; color: #0A3871;">Solo letras minúsculas y sin acentos</p>
+				<p style="font-size: 12px; color: #0A3871;">Ingresa el texto que deseas encriptar. Solo se permiten letras y
+					espacios.
+				</p>
+
 			</div>
 			<div class="right-section">
 				<div class="image-container" id="outputArea">
@@ -40,6 +44,8 @@
 		<footer>
 			<p>by MikeDev06</p>
 		</footer>
+
+
 		<script src="scripts/main.js"></script>
 	</body>
 
