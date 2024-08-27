@@ -21,23 +21,26 @@
 				</label>
 			</div>
 		</header>
-		<main class="input-container">
 
+		<main class="main-container">
 			<aside class="left-section history">
 				<h2>Historial</h2>
 				<ul id="historyList">No hay mensajes en el historial</ul>
 			</aside>
 
 			<div class="hero-section">
-				<h1>Ingrese el texto aqui</h1>
-				<textarea id="inputText" placeholder="Ingrese el texto aqui"></textarea>
+				<div class="text-area">
+					<h1>Ingrese el texto aqui</h1>
+					<textarea id="inputText" placeholder="Ingrese el texto aqui"></textarea>
+				</div>
+				<div class="fyi">
+					<i class="fa-solid fa-circle-info"></i>
+					<p>Solo letras minúsculas y sin acentos</p>
+				</div>
 				<div class="buttons">
 					<button id="encryptBtn">Encriptar</button>
 					<button id="decryptBtn">Desencriptar</button>
 				</div>
-				<p style="font-size: 12px; color: #0A3871;">Ingresa el texto que deseas encriptar. Solo se permiten letras y
-					espacios.
-				</p>
 			</div>
 
 			<aside class="right-section">
