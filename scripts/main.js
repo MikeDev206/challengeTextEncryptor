@@ -5,20 +5,21 @@ document.addEventListener("DOMContentLoaded", () => {
 	const decryptBtn = document.getElementById("decryptBtn");
 	const checkbox = document.getElementById("checkbox");
 	const logoImg = document.getElementById("logo-img");
+	const historyList = document.getElementById("historyList");
 
-	// Creation and configuration of copy modal
+	// Creación y configuración del modal de copia
 	const copyModal = document.createElement("div");
 	copyModal.id = "copyModal";
 	document.body.appendChild(copyModal);
 
-	// Show modal
+	// Función para mostrar el modal
 	function showCopyModal(message) {
 		copyModal.textContent = message;
 		copyModal.style.display = "block";
 		setTimeout(() => {
 			copyModal.style.opacity = 1;
 			document.body.classList.add("modal-active");
-		}, 10); // Delay for transition
+		}, 10); // Retardo para la transición
 
 		setTimeout(() => {
 			copyModal.style.opacity = 0;
@@ -26,25 +27,33 @@ document.addEventListener("DOMContentLoaded", () => {
 				copyModal.style.display = "none";
 				document.body.classList.remove("modal-active");
 			}, 300);
-		}, 3000); // Modal visualization
+		}, 3000); // Visualización del modal
 	}
 
-	// Determines whether the text is encrypted or decrypted
+	// Log acciones en el historial
+	function logHistory(action, text) {
+		const li = document.createElement("li");
+		li.textContent = `${action}: ${text}`;
+		historyList.appendChild(li);
+	}
+
+	// Determina si el texto es encriptado o desencriptado
 	function getActionText() {
 		return outputText.innerText === encrypt(inputText.value) ? "encriptado" : "desencriptado";
 	}
 
-	// Add copy and clear buttons
+	// Botones de copiar y limpiar
 	const copyBtn = document.createElement("button");
 	copyBtn.id = "copyBtn";
-	copyBtn.classList.add("button-common"); // Ensuring consistent styles
+	copyBtn.classList.add("button-common"); // Asegurando estilos consistentes
 	copyBtn.textContent = "Copiar texto encriptado";
 	copyBtn.style.display = "none";
 	copyBtn.addEventListener("click", () => {
-		const actionText = getActionText();
+		const actionText = copyBtn.textContent.includes("encriptado") ? "encriptado" : "desencriptado";
 		navigator.clipboard.writeText(outputText.innerText)
 			.then(() => {
 				showCopyModal(`Texto ${actionText} copiado al portapapeles`);
+				logHistory(`Texto ${actionText} copiado`, outputText.innerText);
 			})
 			.catch(err => {
 				alert("Error al copiar el texto: " + err);
@@ -59,14 +68,15 @@ document.addEventListener("DOMContentLoaded", () => {
 		inputText.value = "";
 		outputText.innerText = "Ningún mensaje fue encontrado";
 		copyBtn.style.display = "none";
+		logHistory("Limpiar", "Campo de texto limpio");
 	});
 
-	// Add buttons to DOM
+	// Agregar botones al DOM
 	const inputContainer = document.querySelector(".buttons");
 	inputContainer.appendChild(copyBtn);
 	inputContainer.appendChild(clearBtn);
 
-	// Change theme
+	// Cambiar tema
 	checkbox.addEventListener("change", () => {
 		document.body.classList.toggle("dark");
 
@@ -87,13 +97,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		outputText.style.color = checkbox.checked ? "#64ffda" : "#0A3871";
 	});
 
-	// Validate input
+	// Validar entrada
 	function validateInput(text) {
 		const regex = /^[a-zñ\s]+$/;
 		return regex.test(text);
 	}
 
-	// Encryption method
+	// Método de encriptado
 	function encrypt(text) {
 		let encryptedText = text.split('').map(char => {
 			if (char === ' ') return char;
@@ -106,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		return encryptedText;
 	}
 
-	// Decryption method
+	// Método de desencriptado
 	function decrypt(text) {
 		let decryptedText = text.split('').map(char => {
 			if (char === ' ') return char;
@@ -119,31 +129,27 @@ document.addEventListener("DOMContentLoaded", () => {
 		return decryptedText;
 	}
 
-	// Show validation message
+	// Mostrar mensaje de validación
 	function showValidationMsg(msg) {
-		// Delete existing validation message
 		const existingMsg = document.querySelector(".validation-msg");
 		if (existingMsg) {
 			existingMsg.remove();
 		}
 
-		// Show actual validation message
 		const validationMsg = document.createElement("p");
 		validationMsg.textContent = msg;
 		validationMsg.classList.add("validation-msg");
 		validationMsg.style.color = checkbox.checked ? "#64ffda" : "#FF0000";
 
-		// Add message to the document
 		const inputContainer = document.querySelector(".input-container");
 		inputContainer.appendChild(validationMsg);
 
-		// Delete message after 2 seconds
 		setTimeout(() => {
 			validationMsg.remove();
 		}, 2000);
 	}
 
-	// Encrypt and Decrypt Listeners
+	// Listeners para encriptar y desencriptar
 	encryptBtn.addEventListener("click", () => {
 		const text = inputText.value;
 		if (validateInput(text)) {
@@ -151,6 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			outputText.innerText = encrypt(text);
 			copyBtn.style.display = "inline-block";
 			copyBtn.textContent = "Copiar texto encriptado";
+			logHistory("Encriptar", text);
 		} else {
 			showValidationMsg("Solo se permiten letras minúsculas y espacios.");
 		}
@@ -163,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			outputText.innerText = decrypt(text);
 			copyBtn.style.display = "inline-block";
 			copyBtn.textContent = "Copiar texto desencriptado";
+			logHistory("Desencriptar", text);
 		} else {
 			showValidationMsg("Solo se permiten letras minúsculas y espacios.");
 		}
